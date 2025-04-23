@@ -316,7 +316,7 @@ export default function AnalyticsPage() {
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {validationResults.map((entry, index) => (
+                      {validationResults.map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -348,7 +348,7 @@ export default function AnalyticsPage() {
                   <Tooltip formatter={(value) => `${value}%`} />
                   <Legend />
                   <Bar dataKey="value" fill="#8884d8">
-                    {validationResults.map((entry, index) => (
+                    {validationResults.map((_entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Bar>
@@ -382,7 +382,7 @@ export default function AnalyticsPage() {
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {countryData.map((entry, index) => (
+                      {countryData.map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -410,7 +410,7 @@ export default function AnalyticsPage() {
                     <Tooltip formatter={(value) => `${value}%`} />
                     <Legend />
                     <Bar dataKey="value" fill="#8884d8">
-                      {countryData.map((entry, index) => (
+                      {countryData.map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Bar>
@@ -445,7 +445,7 @@ export default function AnalyticsPage() {
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {phoneTypeData.map((entry, index) => (
+                      {phoneTypeData.map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -483,7 +483,7 @@ export default function AnalyticsPage() {
                     <Tooltip formatter={(value) => `${value}%`} />
                     <Legend />
                     <Bar dataKey="value" fill="#8884d8">
-                      {phoneTypeData.map((entry, index) => (
+                      {phoneTypeData.map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Bar>
