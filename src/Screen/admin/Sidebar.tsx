@@ -16,6 +16,9 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import { styled, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/sliceing/authslice';
+import {GetStorage} from '../../service/authservice'
 
 import {
   Menu as MenuIcon,
@@ -28,7 +31,7 @@ import {
   BarChart as AnalyticsIcon,
   Notifications as NotificationsIcon,
 } from "@mui/icons-material";
-import { googleLogout } from "@react-oauth/google";
+import { Popover } from "@mui/material";
 
 // Sidebar width when open
 const DRAWER_WIDTH = 300;
@@ -105,8 +108,9 @@ export const AdminSidebar = ({ children }: AdminSidebarProps) => {
   const [open, setOpen] = React.useState(!isMobile);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Add useDispatch hook
   const pathname = location.pathname;
-
+  const [isdropdownopen, setisDropdownOpen] = React.useState(false);
   React.useEffect(() => {
     // Close drawer on mobile when route changes
     if (isMobile) {
@@ -122,11 +126,8 @@ export const AdminSidebar = ({ children }: AdminSidebarProps) => {
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
-  const googlelog = () => {
-    googleLogout();
-    navigate("/admin_signin");
-  };
-
+  const getstorage = GetStorage();
+ 
   const drawer = (
     <>
       <DrawerHeader>
@@ -157,15 +158,10 @@ export const AdminSidebar = ({ children }: AdminSidebarProps) => {
         <Avatar
           sx={{ width: 64, height: 64, mb: 1, bgcolor: "primary.main" }}
           alt="Admin User"
+         
         >
-          A
+           {getstorage?.name.slice(0, 1)||''}
         </Avatar>
-        <Typography variant="subtitle1" fontWeight="bold">
-          Admin User
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          admin@example.com
-        </Typography>
       </Box>
 
       <Divider />
@@ -264,7 +260,7 @@ export const AdminSidebar = ({ children }: AdminSidebarProps) => {
 
         {/* Logout button */}
         <ListItem disablePadding>
-          <ListItemButton onClick={() => googlelog}>
+          <ListItemButton onClick={() => { dispatch(logout()); navigate('/signin'); }}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
@@ -311,10 +307,69 @@ export const AdminSidebar = ({ children }: AdminSidebarProps) => {
 
           {/* User avatar for mobile */}
           <IconButton sx={{ ml: 1 }}>
-            <Avatar sx={{ width: 32, height: 32, bgcolor: "primary.main" }}>
-              A
+            <Avatar sx={{ width: 32, height: 32, bgcolor: "primary.main" }}  onClick={() => setisDropdownOpen(true)}>
+            {getstorage?.name.slice(0, 1)||''}
             </Avatar>
           </IconButton>
+          <Popover
+          open={isdropdownopen}
+          onClose={() => setisDropdownOpen(false)}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          sx={{
+            ".MuiPopover-paper": {
+              top: "55px !important",
+            },
+          }}
+        >
+          <div className="w-64 ">
+            <div className="flex flex-col justify-center items-center my-4">
+              <div
+                className="flex items-center justify-center  w-full font-semibold text-xs p-2 mt-3 cursor-pointer"
+                onClick={() => {
+                  setisDropdownOpen(false);
+                }}
+              >
+                <Avatar
+                  sx={{ width: 32, height: 32, bgcolor: "primary.main" }}
+                  alt="Admin User"
+                >
+                  {getstorage?.name.slice(0, 1)||''}
+                </Avatar>
+
+                <div className="flex flex-col w-full ml-3">
+                  <p className="text-black-900 font-medium text-sm capitalize">
+                    {getstorage?.name ||"name"}
+                  </p>
+                  <p className="text-black-900 text-opacity-30 font-medium sm:text-[9px] text-[11px]  w-40 break-words">
+                    {getstorage?.email||"email null"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col w-full mt-2">
+                <p className="text-xs font-medium text-black-900 pl-3 pt-2 cursor-pointer">
+                  Profile Settings
+                </p>
+                <p className="text-xs font-medium text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 ">
+                  Payment Method
+                </p>
+                <p className="text-xs font-medium text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 ">
+                  Manage Shorts
+                </p>
+                <p className="text-xs font-medium text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 ">
+                  Settings
+                </p>
+                {/* <p className="text-xs font-medium text-red-500 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 ">
+                  {" "}
+                  Sign Out
+                </p> */}
+              </div>
+            </div>
+            <div className="flex justify-around items-center bg-grey-200"></div>
+          </div>
+        </Popover>
         </Toolbar>
       </AppBar>
 

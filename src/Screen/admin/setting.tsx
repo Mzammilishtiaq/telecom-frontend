@@ -1,3 +1,4 @@
+import React from 'react';
 import { SetStateAction, useState } from "react"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
@@ -31,8 +32,14 @@ import {
   Api,
 } from "@mui/icons-material"
 
-// TabPanel component for tab content
-function TabPanel(props: { [x: string]: any; children: any; value: any; index: any }) {
+interface TabPanelProps {
+  children: React.ReactNode;
+  value: number;
+  index: number;
+  [key: string]: unknown;
+}
+
+function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
 
   return (
@@ -91,7 +98,7 @@ export default function SettingsPage() {
     compressionLevel: "medium",
   })
 
-  const handleTabChange = (_event: any, newValue: SetStateAction<number>) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: SetStateAction<number>) => {
     setTabValue(newValue)
   }
 

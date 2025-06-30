@@ -1,16 +1,17 @@
-import { Button } from '@mui/material';
+import React from 'react';
+import { Button, ButtonProps } from '@mui/material';
 
 
 interface ButtonsProps {
   label?: string;
-  type: any;
+  type: ButtonProps['type'];
   isLoading?: boolean;
-  color?: any;
+  color?: ButtonProps['color'];
   disabled?: boolean;
-  variant?: any;
+  variant?: ButtonProps['variant'];
   styleClass?: string;
-  icon?: any;
-  handleButtonClick?: any;
+  icon?: React.ReactNode;
+  handleButtonClick?: () => void;
   leftIconClass?: string;
   labelClass?: string;
 }

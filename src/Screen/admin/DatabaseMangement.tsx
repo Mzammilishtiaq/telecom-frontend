@@ -66,81 +66,46 @@ export default function DatabasePage() {
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [searchQuery, setSearchQuery] = useState("")
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null); // Keep track of the selected file info if needed
   const [uploadStatus, setUploadStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   // This function is triggered when the file input changes (i.e., a file is selected)
   const handleFileSelected = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    let file: File | null = null;
-
-    // 1. Get the file from the event
-    if (event.target.files && event.target.files.length > 0) {
-      file = event.target.files[0];
-      // Basic validation (optional but recommended)
-      if (file.type !== 'application/json') {
-          setUploadStatus('Error: Please select a JSON file.');
-          setSelectedFile(null); // Clear state
-          if (fileInputRef.current) {
-              fileInputRef.current.value = ''; // Reset input
-          }
-          return;
-      }
-      setSelectedFile(file); // Update state (optional, as we use the 'file' variable directly)
-    } else {
-      // Handle the case where no file is selected or the selection is cancelled
-      setSelectedFile(null);
-      setUploadStatus(''); // Clear status
-      return; // Exit if no file selected/cancelled
+    if (!event.target.files || event.target.files.length === 0) {
+      setUploadStatus('');
+      return;
     }
 
-    // 2. Check if a file was successfully obtained (using the local variable)
-    if (!file) {
-      setUploadStatus('Error: File selection failed.');
-      // Reset input value in case of unexpected issues
+    const file = event.target.files[0];
+    if (file.type !== 'application/json') {
+      setUploadStatus('Error: Please select a JSON file.');
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
       return;
     }
 
-    // 3. Proceed with upload immediately after selection
     setIsLoading(true);
     setUploadStatus(`Uploading ${file.name}...`);
 
     const formData = new FormData();
-    // Ensure the field name matches the backend ('file' is default for multer's req.file)
-    // The backend middleware (upload.js) uses req.file, which expects the key 'file' by default.
     formData.append('file', file);
 
     try {
-      // Send the file to the backend endpoint
-      const response = await axios.post('http://localhost:3000/upload', formData, {
-        // Content-Type is set automatically by the browser for FormData
-        // headers: { 'Content-Type': 'multipart/form-data' } // Not usually needed
-      });
-
-      // Use backend message if available, otherwise provide a generic success message
+      const response = await axios.post('http://localhost:3000/upload', formData);
       setUploadStatus(`Upload successful! ${response.data.message || 'Data processed.'}`);
       console.log('Upload response:', response.data);
-      setSelectedFile(null); // Clear state after successful upload
-
     } catch (error) {
       console.error('Upload error:', error);
       let errorMessage = 'Upload failed. Please try again.';
-      // Extract more specific error message from Axios error response if possible
       if (axios.isAxiosError(error) && error.response) {
-          errorMessage = `Upload failed: ${error.response.data.error || error.response.data.message || error.message}`;
+        errorMessage = `Upload failed: ${error.response.data.error || error.response.data.message || error.message}`;
       } else if (error instanceof Error) {
-          errorMessage = `Upload failed: ${error.message}`;
+        errorMessage = `Upload failed: ${error.message}`;
       }
       setUploadStatus(errorMessage);
-      setSelectedFile(null); // Clear state on error
-
     } finally {
       setIsLoading(false);
-      // Reset the file input value in both success and error cases
-      // This allows the user to select the same file again if needed (onChange won't fire otherwise)
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }

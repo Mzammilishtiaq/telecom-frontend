@@ -1,0 +1,1 @@
+export const STORAGE = 'VERIPHONE_ADMIN';

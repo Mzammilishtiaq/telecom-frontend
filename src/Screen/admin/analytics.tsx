@@ -1,3 +1,4 @@
+import React from 'react';
 import { SetStateAction, useState } from "react"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
@@ -92,7 +93,7 @@ export default function AnalyticsPage() {
     setTimeRange(event.target.value)
   }
 
-  const handleTabChange = (_event: any, newValue: SetStateAction<number>) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: SetStateAction<number>) => {
     setTabValue(newValue)
   }
 

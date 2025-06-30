@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl"
 import { styled } from "@mui/material/styles"
 import { cn } from "../../lib/utlits"
 
-const StyledRadio = styled(Radio)(({ theme }:any) => ({
+const StyledRadio = styled(Radio)(() => ({
   padding: 4,
   '&.Mui-disabled': {
     opacity: 0.5,
@@ -32,10 +32,10 @@ RadioGroup.displayName = "RadioGroup"
 interface RadioGroupItemProps
   extends Omit<React.ComponentPropsWithoutRef<typeof Radio>, 'css'> {
   id?: string
-  label?: React.ReactNode // Explicit label prop instead of using children
+  label?: React.ReactNode
 }
 
-const RadioGroupItem = React.forwardRef<any, RadioGroupItemProps>(
+const RadioGroupItem = React.forwardRef<HTMLButtonElement, RadioGroupItemProps>(
   ({ className, id, label, ...props }, ref) => {
     if (!label) {
       return (
