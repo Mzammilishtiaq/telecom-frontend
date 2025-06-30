@@ -22,7 +22,6 @@ import {
   Email,
   Error as ErrorIcon,
   Lock,
-  Password,
   Person,
 } from "@mui/icons-material";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";

@@ -8,7 +8,6 @@ interface ButtonsProps {
   isLoading?: boolean;
   color?: ButtonProps['color'];
   disabled?: boolean;
-  variant?: ButtonProps['variant'];
   styleClass?: string;
   icon?: React.ReactNode;
   handleButtonClick?: () => void;
@@ -28,7 +27,6 @@ function CustomButton(props: ButtonsProps) {
         className={`inline-flex items-center justify-center rounded-md font-normal focus:ring-0 focus:ring-offset-0  ${props.styleClass}`}
         type={props.type}
         onClick={handleClick}
-        variant={props.variant}
         >
         <div className={props.leftIconClass}>{props.icon}</div>
         <div className={props.labelClass}>{props.label}</div>

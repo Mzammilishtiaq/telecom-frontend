@@ -24,7 +24,7 @@ function Home() {
                 <Button label=" Start for free"
                   styleClass="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-lg px-6 py-6"
                   type={'button'} labelClass="text-white text-[12px]" />
-                <Button variant="outline" styleClass="text-lg px-6 py-6 border-2" label="View documentation" type={'button'} />
+                <Button  styleClass="text-lg px-6 py-6 border-2" label="View documentation" type={'button'} />
               </div>
               <div className="flex items-center space-x-4 text-sm text-gray-500">
                 <div className="flex items-center">
