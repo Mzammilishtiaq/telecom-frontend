@@ -65,7 +65,7 @@ const GoogleAuthCallback = () => {
       <p>Processing Google Sign-in...</p>
       {/* Add a spinner or loading animation here */}
     </div>
-  )
+  );
 };
 
 export default GoogleAuthCallback;
