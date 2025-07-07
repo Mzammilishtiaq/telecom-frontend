@@ -43,7 +43,7 @@ function navigate(url: string) {
 }
 
 async function auth() {
-  const response = await fetch('http://localhost:3000/api/auth/google/request', { method: 'post' });
+  const response = await fetch('https://telecom-backend-beta.vercel.app/api/auth/google/request', { method: 'post' });
   const data = await response.json();
   console.log(data);
   navigate(data.url);
