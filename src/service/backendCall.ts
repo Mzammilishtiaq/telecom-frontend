@@ -40,7 +40,7 @@ export const backendCall = async ({
   console.log("token");
   let _response: ApiResponse = { data: "" };
   await axios(
-    import.meta.env.BACKENDCALL_API_URL || "http://telecom-frontend-two.vercel.app" + url,
+    import.meta.env.BACKENDCALL_API_URL || "https://telecom-backend-beta.vercel.app" + url,
     {
       method: method,
       data: data,
