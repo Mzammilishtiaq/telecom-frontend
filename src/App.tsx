@@ -1,4 +1,3 @@
-import React from "react"
 import AppRouting from './Rout';
 import { ToastContainer } from 'react-toastify'
 function App() {

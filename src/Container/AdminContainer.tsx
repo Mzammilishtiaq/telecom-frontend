@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import { AdminSidebar as Sidebar } from "../Screen/admin/Sidebar";
 function AdminContainer() {
